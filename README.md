@@ -1,6 +1,6 @@
 # postalbro CLI
 
-[![npm version](https://img.shields.io/npm/v/postalbro)](https://www.npmjs.com/package/postalbro)  
+[![npm version](https://img.shields.io/npm/v/postalbro)](https://www.npmjs.com/package/postalbro/latest)  
 [![License](https://img.shields.io/npm/l/postalbro)](LICENSE)
 
 **postalbro** is a terminal-based, Postman-inspired CLI for testing, managing, and organizing your APIs quickly and efficiently. With `postalbro`, you can test endpoints, save API configurations, run saved APIs, and manage them without ever leaving the terminal. It supports headers, query parameters, request bodies, multipart uploads, categories, and more.
@@ -327,6 +327,6 @@ This project is licensed under the MIT License. See LICENSE for details.
 
 [Nikesh Adhikari](https://github.com/nikeshadhikari9)
 
-## Keywords
+### Keywords
 
-[postalbro](https://www.npmjs.com/search?q=keywords:postalbro) [api-testing](https://www.npmjs.com/search?q=keywords:api-testing) [api-manager](https://www.npmjs.com/search?q=keywords:api-manager) [postman](https://www.npmjs.com/search?q=keywords:postman) [cli](https://www.npmjs.com/search?q=keywords:cli)
+[postalbro](https://www.npmjs.com/search?q=postalbro) [api-testing](https://www.npmjs.com/search?q=api-testing) [api-manager](https://www.npmjs.com/search?q=api-manager) [postman](https://www.npmjs.com/search?q=postman) [cli](https://www.npmjs.com/search?q=cli)
