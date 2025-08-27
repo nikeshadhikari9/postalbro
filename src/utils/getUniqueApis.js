@@ -65,6 +65,7 @@ export const getUniqueApis = (recentApis, savedApis, category = '') => {
         const exists = apis.some(a => isSameApi(a, apiToAdd));
         if (!exists) {
             apis.push({
+                id: apiToAdd.id,
                 method: apiToAdd.method,
                 url: apiToAdd.url,
                 createdOptions: {
