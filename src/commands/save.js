@@ -84,7 +84,7 @@ export default async (method, url, options, dbType) => {
             }
         }
 
-        // Parse query params
+        // Parse query params into JSON data
         let queryParams = options.query || {};
         if (queryParams && typeof queryParams === "string") {
             try {
