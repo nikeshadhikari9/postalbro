@@ -19,6 +19,7 @@ import logger from "./src/utils/logger.js";
 import saveCmd from "./src/commands/save.js";
 import testCmd from "./src/commands/test.js";
 import runCmd from "./src/commands/run.js";
+import detailsCmd from "./src/commands/details.js";
 import recentCmd from "./src/commands/recent.js";
 import searchCmd from "./src/commands/search.js";
 import listCmd from "./src/commands/list.js";
@@ -30,6 +31,7 @@ import {
     displayListHelp,
     displayRecentHelp,
     displayRunHelp,
+    displayDetailHelp,
     displaySaveHelp,
     displaySearchHelp,
     displayTestHelp,
@@ -61,6 +63,10 @@ const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url
             }
             else if (args[2] === "run") {
                 displayRunHelp();
+                process.exit(0);
+            }
+            else if (args[2] === "detail") {
+                displayDetailHelp();
                 process.exit(0);
             }
             else if (args[2] === "search") {
@@ -238,6 +244,26 @@ const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url
         runCommand.helpOption(false);
         runCommand.on('--help', () => {
             displayRunHelp();
+            process.exit(0);
+        });
+
+        // show details of an api
+        const detailCommand = program
+            .command("detail")
+            .description("detail of saved API")
+            .option("-i, --id <id>", "Id of API for single request", "")
+            .option("-c, --category <category>", "Category for similar host API", "")
+            .action(async (options) => {
+                try {
+                    await detailsCmd(options);
+                } catch (err) {
+                    logger.error("Error executing detail command:", err);
+                    process.exit(1);
+                }
+            });
+        detailCommand.helpOption(false);
+        detailCommand.on('--help', () => {
+            displayDetailHelp();
             process.exit(0);
         });
 
