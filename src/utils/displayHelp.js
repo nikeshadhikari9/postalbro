@@ -30,6 +30,7 @@ const displayCustomHelp = () => {
     logger.info("  test <method> <url>        Test an API endpoint");
     logger.info("  save <method> <url>        Save an API configuration for later");
     logger.info("  run                        Run saved APIs (by id or category)");
+    logger.info("  detail                     Display details of saved APIs (by id or category)");
     logger.info("  list                       List saved APIs (with filters)");
     logger.info("  delete                     Delete saved APIs (by id, category, or all)");
     logger.info("  recent                     Show recently called APIs");
@@ -54,6 +55,7 @@ const displayCustomHelp = () => {
     logger.info("  postalbro save POST http://localhost:2025/data -d '{\"name\":\"Nikesh\"}'");
     logger.info("  postalbro run --id 1a2b");
     logger.info("  postalbro run --category users");
+    logger.info("  postalbro detail --category users");
     logger.info("  postalbro list --all");
     logger.info("  postalbro delete --category temp");
     logger.info("  postalbro search \"users\"\n");
@@ -180,6 +182,32 @@ const displayRunHelp = () => {
     logger.info("  • Automate testing of multiple APIs at once.");
     logger.info("  • Combine with categories for running grouped workflows.");
     logger.info("  • Great for regression or smoke testing APIs.\n");
+
+    logger.response("More info:");
+    logger.info("  Documentation & updates: https://github.com/nikeshadhikari9/postalbro\n");
+};
+
+// --------------------------
+// DETAIL Command Help
+// --------------------------
+const displayDetailHelp = () => {
+    logger.message("┌────────────────────────────────────────────────────────────────────────────────┐");
+    logger.message("│                         POSTALBRO DETAIL COMMAND HELP                          │");
+    logger.message("└────────────────────────────────────────────────────────────────────────────────┘");
+    logger.info("");
+    logger.response("Purpose:");
+    logger.info("  Display details of one or more previously saved APIs based on category or just id.\n");
+
+    logger.response("Usage:");
+    logger.info("  postalbro detail [options]\n");
+
+    logger.response("Options:");
+    logger.info("  -i, --id <id>                 Diaplay details of a single API by its ID");
+    logger.info("  -c, --category <category>     Diaplay details of API(s) by their category\n");
+
+    logger.response("Examples:");
+    logger.info("  postalbro detail -i ab12");
+    logger.info("  postalbro detail -c auth-apis\n");
 
     logger.response("More info:");
     logger.info("  Documentation & updates: https://github.com/nikeshadhikari9/postalbro\n");
@@ -327,6 +355,7 @@ export {
     displayListHelp,
     displayRecentHelp,
     displayRunHelp,
+    displayDetailHelp,
     displaySaveHelp,
     displaySearchHelp,
     displayTestHelp,
