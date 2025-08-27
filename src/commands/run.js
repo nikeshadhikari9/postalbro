@@ -71,7 +71,7 @@ export default async (options) => {
         }
 
         // If neither ID nor category provided
-        if (!id || !category) {
+        if (!id && !category) {
             logger.warn("You must provide either an API id (-i) or a category (-c) to run.");
             process.exit(1);
         }
