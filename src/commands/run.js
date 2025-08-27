@@ -71,17 +71,13 @@ export default async (options) => {
         }
 
         // If neither ID nor category provided
-        logger.warn("You must provide either an API id (-i) or a category (-c) to run.");
-        process.exit(1);
+        if (!id || !category) {
+            logger.warn("You must provide either an API id (-i) or a category (-c) to run.");
+            process.exit(1);
+        }
 
     } catch (error) {
-        // Robust error handling
-        if (error instanceof Error) {
-            logger.error(`Error running API: ${error.message}`);
-            logger.error(error.stack);
-        } else {
-            logger.error("Unknown error:", error);
-        }
+        logger.error("An error occurred while running API tests:", e);
         process.exit(1);
     }
 };
