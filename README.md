@@ -70,7 +70,7 @@ Postalbro is designed to improve productivity and efficiency when working with A
 To install `postalbro` globally via NPM, run the following:
 
 ```bash
-npm install postalbro
+npm install -g postalbro
 ```
 
 ### Verify Installation:
