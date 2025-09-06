@@ -296,6 +296,7 @@ const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url
             .option("-c, --category <category>", "Category for similar host API", "")
             .option("-i, --id <id>", "Delete API by id", "")
             .option("-a, --all", "Delete all saved APIs", false)
+            .option("-r, --recent", "Delete all recent tested APIs", false)
             .option("-y, --yes", "Skip confirmation prompt", false)
             .action(async (options) => {
                 try {

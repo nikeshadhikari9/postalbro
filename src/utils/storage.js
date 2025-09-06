@@ -91,29 +91,39 @@ async function loadRecent() {
  * @param {Object} data - API object or object containing `apis` array
  */
 async function saveRecent(data) {
-    let recentData = [];
+    if (data.apis && data.apis.length === 0) {
+        const saveObj = data;
+        try {
+            await fsp.writeFile(RECENT_FILE, JSON.stringify(saveObj, null, 2));
+        } catch (err) {
+            throw new Error("Failed to save recent APIs: " + err.message);
+        }
 
-    try {
-        const fileContent = await fsp.readFile(RECENT_FILE, "utf-8");
-        recentData = JSON.parse(fileContent).apis || [];
-    } catch (err) {
-        recentData = [];
+    } else {
+        let recentData = [];
+
+        try {
+            const fileContent = await fsp.readFile(RECENT_FILE, "utf-8");
+            recentData = JSON.parse(fileContent).apis || [];
+        } catch (err) {
+            recentData = [];
+        }
+
+        // Always add the latest API at the front
+        const apiToSave = data.apis ? data.apis[0] : data;
+        recentData.unshift(apiToSave);
+
+        // Keep only latest 10 entries
+        if (recentData.length > 10) recentData = recentData.slice(0, 10);
+
+        const saveObj = { apis: recentData, createdAt: new Date().toISOString() };
+        try {
+            await fsp.writeFile(RECENT_FILE, JSON.stringify(saveObj, null, 2));
+        } catch (err) {
+            throw new Error("Failed to save recent APIs: " + err.message);
+        }
     }
 
-    // Always add the latest API at the front
-    const apiToSave = data.apis ? data.apis[0] : data;
-    recentData.unshift(apiToSave);
-
-    // Keep only latest 10 entries
-    if (recentData.length > 10) recentData = recentData.slice(0, 10);
-
-    const saveObj = { apis: recentData, createdAt: new Date().toISOString() };
-
-    try {
-        await fsp.writeFile(RECENT_FILE, JSON.stringify(saveObj, null, 2));
-    } catch (err) {
-        throw new Error("Failed to save recent APIs: " + err.message);
-    }
 }
 
 // ---------------------- Exports ----------------------

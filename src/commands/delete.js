@@ -13,7 +13,7 @@
  * @returns {Promise<void>}
  */
 
-import { loadDB, saveDB } from "../utils/storage.js";
+import { loadDB, saveDB, loadRecent, saveRecent } from "../utils/storage.js";
 import logger from "../utils/logger.js";
 import readline from "readline";
 
@@ -23,8 +23,16 @@ export default async (options) => {
         const DB_SAVED = await loadDB();
         const apis = DB_SAVED?.apis || [];
 
-        if (apis.length === 0) {
+        // Load recent APIs
+        const DB_RECENT = await loadRecent();
+        const recent_apis = DB_RECENT?.apis || [];
+
+        if ((options.all || options.category || options.id) && apis.length === 0) {
             logger.warn("No saved APIs found.");
+            process.exit(0);
+        }
+        if (options.recent && recent_apis.length === 0) {
+            logger.warn("No recently tested APIs found.");
             process.exit(0);
         }
 
@@ -46,8 +54,14 @@ export default async (options) => {
                 logger.warn(`No APIs found in category: ${options.category}`);
                 process.exit(0);
             }
+        } else if (options.recent) {
+            toDelete = [...recent_apis];
+            if (toDelete.length === 0) {
+                logger.warn(`No APIs found in recents.`);
+                process.exit(0);
+            }
         } else {
-            logger.warn("No filter provided. Use --all, --id, or --category to delete.");
+            logger.warn("No filter provided. Use --all, --id, --category, or --recent to delete.");
             process.exit(0);
         }
 
@@ -84,13 +98,19 @@ export default async (options) => {
             }
 
             // Perform deletion
-            const remaining = apis.filter((a) => !toDelete.includes(a));
-            DB_SAVED.apis = remaining;
-            await saveDB(DB_SAVED);
-
-            logger.success(
-                `Deleted ${toDelete.length} API(s). Remaining: ${remaining.length}`
-            );
+            if (options.all || options.category || options.id) {
+                const remaining = apis.filter((a) => !toDelete.includes(a));
+                DB_SAVED.apis = remaining;
+                await saveDB(DB_SAVED);
+                logger.success(
+                    `Deleted ${toDelete.length} API(s). Remaining: ${remaining.length}`
+                );
+            }
+            if (options.recent) {
+                DB_RECENT.apis = [];  // wipe completely
+                await saveRecent(DB_RECENT);  // overwrite with a clean object
+                logger.success(`Deleted all ${toDelete.length} recent API(s).`);
+            }
         };
 
         await confirmAndDelete();

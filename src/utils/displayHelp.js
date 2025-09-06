@@ -268,11 +268,13 @@ const displayDeleteHelp = () => {
     logger.info("  -i, --id <id>                  Delete a single API by ID");
     logger.info("  -c, --category <category>      Delete all APIs in a category");
     logger.info("  -a, --all                      Delete all saved APIs");
+    logger.info("  -r, --recent                   Delete all recent tested APIs");
     logger.info("  -y, --yes                      Skip confirmation prompt\n");
 
     logger.response("Examples:");
     logger.info("  postalbro delete -i ab12");
     logger.info("  postalbro delete -c temp");
+    logger.info("  postalbro delete -r");
     logger.info("  postalbro delete -a -y\n");
 
     logger.response("Features:");

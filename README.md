@@ -182,6 +182,7 @@ Options:
 - `-i, --id <id>`: Delete API by ID
 - `-c, --category <category>`: Delete all APIs in a category
 - `-a, --all`: Delete all saved APIs
+- `-r, --recent`: Delete all recently tested APIs
 - `-y, --yes`: Skip confirmation prompt
 
 ### Recent
