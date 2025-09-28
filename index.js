@@ -10,7 +10,7 @@
  * - Proper error handling and exit codes
  * - CLI-wide output configured via a custom logger
  * 
- * No actual API logic is implemented here; all commands delegate to their respective modules.
+ * No actual API logic is implemented here;
  */
 
 import { Command } from "commander";
